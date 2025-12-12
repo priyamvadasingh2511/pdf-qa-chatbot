@@ -1,0 +1,22 @@
+# Core
+streamlit==1.41.1
+python-dotenv==1.0.1
+
+# PDF processing
+pymupdf==1.25.2
+pdfplumber==0.11.5
+
+# Embeddings
+sentence-transformers==3.4.1
+
+# Vector DB
+faiss-cpu==1.10.0
+numpy>=1.26.0
+
+# LangChain - Fully Compatible Versions
+langchain-core==0.3.32
+langchain-community==0.3.16
+langchain-huggingface==0.1.0
+
+# HuggingFace Client
+huggingface-hub==0.33.1
