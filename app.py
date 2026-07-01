@@ -7,13 +7,22 @@ import numpy as np
 import faiss
 import os
 import uuid
-from langchain_huggingface import HuggingFaceEndpoint
+#from langchain_huggingface import HuggingFaceEndpoint
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 
 load_dotenv()
 #st.write("API Key Loaded:", "HUGGINGFACEHUB_API_TOKEN" in os.environ)
+
+llm = ChatOpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    model="openrouter/free",
+    temperature=0.5,
+    max_tokens=256,
+)
 
 
 st.title("PDF Q&A Chatbot")
@@ -79,14 +88,7 @@ def retreive_text(query, index, text_chunks, top_k=3):
     return [text_chunks[i] for i in indices[0]]#FAISS only gives row numbers, not the original text.This line maps those indices back to the actual text.
                                                 #Returns a list of the top relevant chunks.
 
-#Loading the LLM
 
-llm = HuggingFaceEndpoint(
-    repo_id="meta-llama/Llama-3.2-3B-Instruct",
-    task="text-generation",
-    temperature=0.5,
-    max_new_tokens=256
-)
 #st.write("LLM type:", type(llm))
 #Prompt to send to LLM
 prompt = PromptTemplate(
